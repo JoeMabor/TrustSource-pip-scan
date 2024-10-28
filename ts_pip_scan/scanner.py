@@ -1,6 +1,7 @@
 import json
 import os
 import re
+import sys
 import time
 from importlib.metadata import Distribution, PackageNotFoundError, distribution, files
 from pathlib import Path
@@ -115,7 +116,7 @@ class Scanner:
             time.sleep(10)
         if scan is None:
             print(f"Could not fetch scan results after {counter} tries")
-            exit(1)
+            sys.exit(1)
 
         legal_warnings: int = scan["statistics"]["legal"]["warnings"]
         legal_violations: int = scan["statistics"]["legal"]["violations"]
@@ -149,6 +150,7 @@ class Scanner:
         else:
             print("TS evaluation failed: ")
             pprint(checks)
+            sys.exit(1)
         return scan
 
     def _save_output(self, data: dict, output_path):

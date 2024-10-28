@@ -1,3 +1,5 @@
+import sys
+
 from httpx import Client, RequestError
 from ts_pip_scan import __version__
 
@@ -22,7 +24,7 @@ class ApiClient:
             res = self.client.post('/core/scans', json=scan_data)
         except RequestError as exc:
             print(f"RequestError: {exc}")
-            exit(1)
+            sys.exit(1)
 
         if res.is_success:
             result = res.json()
@@ -31,7 +33,7 @@ class ApiClient:
             return result
         else:
             print(f'Failed to post scan data {res.request.url}: {res.status_code} error: {res.text}')
-            exit(1)
+            sys.exit(1)
 
 
     def get_scan(self, scan_id) -> dict:
@@ -40,4 +42,4 @@ class ApiClient:
             return res.json()
         else:
             print(f'Failed to get scan data {res.request.url}: {res.status_code} error: {res.text}')
-            exit(1)
+            sys.exit(1)
