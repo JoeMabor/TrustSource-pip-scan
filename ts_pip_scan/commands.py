@@ -40,7 +40,6 @@ def scan(base_url, project,module, api_key, evaluate,skip_upload, output, path: 
         config_dict["project"] = project
     config_dict["base_url"] = base_url.rstrip("/")
     config_dict["skip_upload"] = skip_upload
-    print(config_dict)
     config = Config(**config_dict)
 
     scanner = Scanner(path, config)
